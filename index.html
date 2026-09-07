@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffedd5" />
+  <title>秋のイベントガイド2026</title>
+  <style>
+    :root{
+      --bg1:#fff7ed;
+      --bg2:#ffedd5;
+      --paper:#fffdf8;
+      --ink:#5b3423;
+      --muted:#8a6a58;
+      --orange:#fb923c;
+      --orange-deep:#f97316;
+      --yellow:#facc15;
+      --red:#ef4444;
+      --pink:#f472b6;
+      --green:#84cc16;
+      --teal:#22c55e;
+      --line:#f2c9a8;
+      --shadow:0 16px 40px rgba(161, 98, 7, .16);
+      --radius:28px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    html, body{
+      margin:0;
+      min-height:100%;
+      color:var(--ink);
+      font-family:
+        -apple-system, BlinkMacSystemFont,
+        "Hiragino Sans", "Yu Gothic", "YuGothic",
+        "Noto Sans JP", sans-serif;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(250, 204, 21, .20), transparent 25%),
+        radial-gradient(circle at 100% 10%, rgba(244, 114, 182, .14), transparent 22%),
+        radial-gradient(circle at 0% 100%, rgba(34, 197, 94, .10), transparent 28%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+    }
+
+    body{
+      padding:
+        max(18px, env(safe-area-inset-top))
+        16px
+        max(24px, env(safe-area-inset-bottom));
+      display:grid;
+      place-items:center;
+      overflow-x:hidden;
+    }
+
+    button, a{
+      font:inherit;
+    }
+
+    .app{
+      width:min(100%, 540px);
+      position:relative;
+    }
+
+    .floating-leaves{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+    }
+
+    .leaf{
+      position:absolute;
+      width:16px;
+      height:16px;
+      opacity:.28;
+      animation: drift linear infinite;
+      border-radius: 2px 12px 2px 12px;
+      transform: rotate(25deg);
+    }
+
+    .leaf:nth-child(1){ left:6%; top:-10%; background:var(--orange); animation-duration:15s; animation-delay:-2s; }
+    .leaf:nth-child(2){ left:18%; top:-6%; background:var(--yellow); animation-duration:18s; animation-delay:-10s; }
+    .leaf:nth-child(3){ left:32%; top:-12%; background:var(--red); animation-duration:16s; animation-delay:-7s; }
+    .leaf:nth-child(4){ left:47%; top:-8%; background:var(--green); animation-duration:19s; animation-delay:-15s; }
+    .leaf:nth-child(5){ left:63%; top:-14%; background:var(--pink); animation-duration:14s; animation-delay:-6s; }
+    .leaf:nth-child(6){ left:79%; top:-9%; background:var(--orange-deep); animation-duration:17s; animation-delay:-11s; }
+    .leaf:nth-child(7){ left:88%; top:-11%; background:var(--yellow); animation-duration:20s; animation-delay:-3s; }
+    .leaf:nth-child(8){ left:95%; top:-7%; background:var(--red); animation-duration:15s; animation-delay:-12s; }
+
+    @keyframes drift{
+      0%{ transform:translate3d(0,0,0) rotate(0deg); }
+      25%{ transform:translate3d(12px, 24vh, 0) rotate(80deg); }
+      50%{ transform:translate3d(-8px, 48vh, 0) rotate(140deg); }
+      75%{ transform:translate3d(18px, 74vh, 0) rotate(220deg); }
+      100%{ transform:translate3d(-10px, 110vh, 0) rotate(310deg); }
+    }
+
+    .header{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      margin-bottom:14px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(255,255,255,.65);
+      color:var(--orange-deep);
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.08em;
+      box-shadow:0 8px 18px rgba(251, 146, 60, .12);
+      backdrop-filter: blur(8px);
+    }
+
+    h1{
+      margin:14px 0 8px;
+      font-size:clamp(30px, 8vw, 42px);
+      line-height:1.15;
+      letter-spacing:.02em;
+      font-weight:900;
+    }
+
+    .lead{
+      margin:0 auto;
+      max-width:32em;
+      font-size:14px;
+      line-height:1.85;
+      color:var(--muted);
+    }
+
+    .panel{
+      position:relative;
+      z-index:2;
+      overflow:hidden;
+      padding:20px 16px 18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,253,248,.95));
+      border:1px solid rgba(255,255,255,.75);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .panel::before{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      right:-60px;
+      top:-80px;
+      background:radial-gradient(circle, rgba(250, 204, 21, .28), transparent 65%);
+      pointer-events:none;
+    }
+
+    .panel::after{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      left:-70px;
+      bottom:-95px;
+      background:radial-gradient(circle, rgba(244, 114, 182, .18), transparent 65%);
+      pointer-events:none;
+    }
+
+    .hero{
+      display:grid;
+      gap:18px;
+      justify-items:center;
+    }
+
+    .fortune-stage{
+      position:relative;
+      width:min(100%, 360px);
+      padding-top:10px;
+      min-height:325px;
+    }
+
+    .rays{
+      position:absolute;
+      inset:10px 0 auto;
+      height:220px;
+      width:100%;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, .75), transparent 48%),
+        conic-gradient(
+          from 0deg,
+          rgba(250, 204, 21, .0) 0deg 10deg,
+          rgba(250, 204, 21, .20) 10deg 20deg,
+          rgba(250, 204, 21, .0) 20deg 30deg,
+          rgba(251, 146, 60, .17) 30deg 40deg,
+          rgba(250, 204, 21, .0) 40deg 50deg,
+          rgba(239, 68, 68, .16) 50deg 60deg,
+          rgba(250, 204, 21, .0) 60deg 70deg,
+          rgba(132, 204, 22, .14) 70deg 80deg,
+          rgba(250, 204, 21, .0) 80deg 90deg,
+          rgba(244, 114, 182, .16) 90deg 100deg,
+          rgba(250, 204, 21, .0) 100deg 110deg,
+          rgba(251, 146, 60, .16) 110deg 120deg,
+          rgba(250, 204, 21, .0) 120deg 130deg,
+          rgba(132, 204, 22, .14) 130deg 140deg,
+          rgba(250, 204, 21, .0) 140deg 150deg,
+          rgba(239, 68, 68, .16) 150deg 160deg,
+          rgba(250, 204, 21, .0) 160deg 170deg,
+          rgba(251, 146, 60, .17) 170deg 180deg,
+          rgba(250, 204, 21, .0) 180deg 190deg,
+          rgba(244, 114, 182, .15) 190deg 200deg,
+          rgba(250, 204, 21, .0) 200deg 210deg,
+          rgba(132, 204, 22, .14) 210deg 220deg,
+          rgba(250, 204, 21, .0) 220deg 230deg,
+          rgba(251, 146, 60, .16) 230deg 240deg,
+          rgba(250, 204, 21, .0) 240deg 250deg,
+          rgba(239, 68, 68, .16) 250deg 260deg,
+          rgba(250, 204, 21, .0) 260deg 270deg,
+          rgba(132, 204, 22, .14) 270deg 280deg,
+          rgba(250, 204, 21, .0) 280deg 290deg,
+          rgba(244, 114, 182, .15) 290deg 300deg,
+          rgba(250, 204, 21, .0) 300deg 310deg,
+          rgba(251, 146, 60, .17) 310deg 320deg,
+          rgba(250, 204, 21, .0) 320deg 330deg,
+          rgba(239, 68, 68, .16) 330deg 340deg,
+          rgba(250, 204, 21, .0) 340deg 350deg,
+          rgba(132, 204, 22, .14) 350deg 360deg
+        );
+      border-radius:50%;
+      filter:blur(.3px);
+      opacity:.75;
+      animation: slowSpin 28s linear infinite;
+      pointer-events:none;
+    }
+
+    @keyframes slowSpin{
+      from{ transform:rotate(0deg); }
+      to{ transform:rotate(360deg); }
+    }
+
+    .omikuji-box{
+      position:absolute;
+      left:50%;
+      bottom:0;
+      transform:translateX(-50%);
+      width:210px;
+      height:160px;
+      border-radius:24px;
+      background:
+        linear-gradient(180deg, #f59e0b 0%, #f97316 100%);
+      box-shadow:
+        inset 0 -8px 0 rgba(154, 52, 18, .18),
+        0 15px 30px rgba(249, 115, 22, .24);
+      border:6px solid #fff3e0;
+    }
+
+    .omikuji-box::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:16px;
+      transform:translateX(-50%);
+      width:118px;
+      height:16px;
+      border-radius:10px;
+      background:#8b4513;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,.18);
+    }
+
+    .omikuji-box::after{
+      content:"おみくじ";
+      position:absolute;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%);
+      padding:8px 18px;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      color:#c2410c;
+      font-weight:900;
+      font-size:20px;
+      box-shadow:0 4px 10px rgba(255,255,255,.28);
+    }
+
+    .face{
+      position:absolute;
+      top:58px;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:#7c2d12;
+    }
+    .face.left{ left:76px; }
+    .face.right{ right:76px; }
+
+    .smile{
+      position:absolute;
+      left:50%;
+      top:77px;
+      width:42px;
+      height:18px;
+      transform:translateX(-50%);
+      border-bottom:4px solid #7c2d12;
+      border-radius:0 0 24px 24px;
+    }
+
+    .paper{
+      position:absolute;
+      left:50%;
+      bottom:88px;
+      transform:translateX(-50%) translateY(80px);
+      width:152px;
+      min-height:172px;
+      border-radius:18px;
+      background:var(--paper);
+      border:3px solid #ffe2be;
+      box-shadow:0 12px 24px rgba(120,53,15,.16);
+      padding:18px 14px 14px;
+      text-align:center;
+      opacity:0;
+    }
+
+    .paper::before{
+      content:"★ おでかけみくじ ★";
+      display:block;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.05em;
+      color:#f97316;
+      margin-bottom:8px;
+    }
+
+    .paper-title{
+      margin:0;
+      font-size:29px;
+      line-height:1.15;
+      font-weight:900;
+      color:#ef4444;
+      letter-spacing:.02em;
+    }
+
+    .paper-sub{
+      margin:8px 0 0;
+      font-size:13px;
+      line-height:1.65;
+      color:var(--muted);
+    }
+
+    .shaking{
+      animation: shake .58s ease-in-out 4;
+    }
+
+    @keyframes shake{
+      0%, 100%{ transform:translateX(-50%) rotate(0deg); }
+      20%{ transform:translateX(calc(-50% - 6px)) rotate(-4deg); }
+      40%{ transform:translateX(calc(-50% + 7px)) rotate(3deg); }
+      60%{ transform:translateX(calc(-50% - 5px)) rotate(-3deg); }
+      80%{ transform:translateX(calc(-50% + 5px)) rotate(2deg); }
+    }
+
+    .paper.show{
+      animation: paperUp .9s cubic-bezier(.2,.9,.2,1) forwards;
+    }
+
+    @keyframes paperUp{
+      0%{
+        opacity:0;
+        transform:translateX(-50%) translateY(90px) scale(.92);
+      }
+      55%{
+        opacity:1;
+        transform:translateX(-50%) translateY(-56px) scale(1.03);
+      }
+      100%{
+        opacity:1;
+        transform:translateX(-50%) translateY(-42px) scale(1);
+      }
+    }
+
+    .caption{
+      margin:0;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    .button-row{
+      display:grid;
+      gap:12px;
+      width:100%;
+      max-width:360px;
+      margin:0 auto;
+    }
+
+    .primary,
+    .secondary,
+    .link-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      min-height:54px;
+      padding:12px 16px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:900;
+      transition:transform .16s ease, opacity .16s ease, box-shadow .16s ease;
+    }
+
+    .primary{
+      border:none;
+      color:white;
+      background:linear-gradient(90deg, var(--orange-deep), var(--red));
+      box-shadow:0 12px 22px rgba(239, 68, 68, .22);
+      cursor:pointer;
+    }
+
+    .secondary{
+      border:2px solid #ffd5af;
+      color:#b45309;
+      background:rgba(255,255,255,.86);
+      cursor:pointer;
+    }
+
+    .link-btn{
+      border:2px solid rgba(255,255,255,.4);
+      color:white;
+      background:linear-gradient(90deg, #22c55e, #16a34a);
+      box-shadow:0 10px 20px rgba(34, 197, 94, .20);
+    }
+
+    .link-btn.website{
+      background:linear-gradient(90deg, #fb923c, #f97316);
+      box-shadow:0 10px 20px rgba(249, 115, 22, .20);
+    }
+
+    .primary:active, .secondary:active, .link-btn:active{
+      transform:scale(.985);
+    }
+
+    .primary[disabled]{
+      opacity:.58;
+      cursor:default;
+    }
+
+    .result{
+      margin-top:18px;
+      padding:16px 14px 14px;
+      border-radius:24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,250,242,.96));
+      border:1px solid rgba(255, 214, 181, .9);
+      box-shadow:0 12px 26px rgba(120,53,15,.10);
+      opacity:0;
+      transform:translateY(12px) scale(.98);
+      pointer-events:none;
+    }
+
+    .result.show{
+      opacity:1;
+      transform:translateY(0) scale(1);
+      transition:opacity .35s ease, transform .35s ease;
+      pointer-events:auto;
+    }
+
+    .result-header{
+      text-align:center;
+      margin-bottom:10px;
+    }
+
+    .kicker{
+      margin:0;
+      font-size:12px;
+      color:#f97316;
+      font-weight:900;
+      letter-spacing:.08em;
+    }
+
+    .map-number{
+      margin:8px 0 0;
+      font-size:clamp(34px, 10vw, 46px);
+      line-height:1;
+      font-weight:900;
+      color:#ef4444;
+      letter-spacing:-.03em;
+    }
+
+    .spot-name{
+      margin:10px 0 0;
+      font-size:clamp(24px, 7vw, 30px);
+      line-height:1.35;
+      font-weight:900;
+      color:var(--ink);
+    }
+
+    .fortune-card{
+      margin:12px 0 14px;
+      padding:14px 12px;
+      border-radius:18px;
+      background:linear-gradient(180deg, #fff7ed, #fffbf5);
+      border:1px dashed #fdba74;
+      text-align:center;
+    }
+
+    .fortune-name{
+      margin:0;
+      font-size:20px;
+      line-height:1.2;
+      font-weight:900;
+      color:#c2410c;
+    }
+
+    .fortune-text{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.75;
+    }
+
+    .result-actions{
+      display:grid;
+      gap:10px;
+    }
+
+    .notice{
+      margin:12px 0 0;
+      text-align:center;
+      color:#9a7b68;
+      font-size:12px;
+      line-height:1.75;
+    }
+
+    .confetti{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:10;
+    }
+
+    .piece{
+      position:absolute;
+      width:12px;
+      height:18px;
+      top:30%;
+      left:50%;
+      opacity:0;
+      border-radius:4px;
+      transform:translate(-50%, -50%);
+    }
+
+    .piece.play{
+      animation: burst 1100ms ease-out forwards;
+    }
+
+    @keyframes burst{
+      0%{
+        opacity:0;
+        transform:translate(-50%, -50%) scale(.2) rotate(0deg);
+      }
+      10%{
+        opacity:1;
+      }
+      100%{
+        opacity:0;
+        transform:
+          translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+          rotate(var(--rot))
+          scale(1);
+      }
+    }
+
+    .footer{
+      position:relative;
+      z-index:2;
+      margin-top:14px;
+      text-align:center;
+      color:#9a7b68;
+      font-size:11px;
+      line-height:1.7;
+    }
+
+    @media (max-width: 380px){
+      .fortune-stage{
+        min-height:300px;
+      }
+      .omikuji-box{
+        width:190px;
+        height:148px;
+      }
+      .face.left{ left:69px; }
+      .face.right{ right:69px; }
+      .paper{
+        width:144px;
+        min-height:162px;
+      }
+    }
+
+
+    /* ===== Google My Maps：スマホ最適化 ===== */
+    .map-section{
+      width:100%;
+      box-sizing:border-box;
+      margin-top:20px;
+      padding:20px 0 4px;
+      border-top:1px solid rgba(242,201,168,.75);
+    }
+
+    .map-section-header{
+      text-align:center;
+      margin:0 0 12px;
+      padding:0 8px;
+    }
+
+    .map-section-header h2{
+      margin:4px 0 5px;
+      font-size:21px;
+      line-height:1.35;
+      font-weight:900;
+    }
+
+    .map-section-header p:last-child{
+      margin:0;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.7;
+    }
+
+    .map-frame{
+      position:relative;
+      width:100%;
+      height:0;
+      padding-bottom:75%;
+      overflow:hidden;
+      border-radius:18px;
+      background:#f5eee7;
+      border:1px solid #f2c9a8;
+      box-shadow:0 8px 20px rgba(120,53,15,.10);
+    }
+
+    .map-frame iframe{
+      position:absolute;
+      inset:0;
+      display:block;
+      width:100% !important;
+      height:100% !important;
+      min-height:0 !important;
+      border:0;
+    }
+
+    @media (max-width:380px){
+      .map-frame{
+        padding-bottom:78%;
+        border-radius:15px;
+      }
+      .map-section-header h2{
+        font-size:20px;
+      }
+    }
+
+
+    .fortune-message{
+      margin:4px 0 14px;
+      font-size:14px;
+      line-height:1.7;
+      font-weight:700;
+      color:var(--ink);
+    }
+
+    .result-message{
+      margin:0 0 8px;
+      font-size:14px;
+      line-height:1.8;
+      color:var(--muted);
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{
+        animation-duration:0.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:0.01ms !important;
+        scroll-behavior:auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-leaves" aria-hidden="true">
+    <span class="leaf"></span>
+    <span class="leaf"></span>
+    <span class="leaf"></span>
+    <span class="leaf"></span>
+    <span class="leaf"></span>
+    <span class="leaf"></span>
+    <span class="leaf"></span>
+    <span class="leaf"></span>
+  </div>
+
+  <main class="app">
+    <header class="header">
+      <div class="badge">🍁 秋の行楽ガイド 連動コンテンツ 🍁</div>
+      <h1>秋のイベントガイド2026</h1>
+      <p class="lead">
+        今日はどのイベントに行こう？<br>
+        おみくじを引いて、この秋おすすめのイベントを見つけよう！
+      </p>
+    </header>
+
+    <section class="panel">
+      <div class="hero">
+        <div class="fortune-stage">
+          <div class="rays" aria-hidden="true"></div>
+
+          <div id="omikujiBox" class="omikuji-box" aria-hidden="true">
+            <span class="face left"></span>
+            <span class="face right"></span>
+            <span class="smile"></span>
+          </div>
+
+          <div id="paper" class="paper" aria-live="polite">
+            <h2 id="paperTitle" class="paper-title">おでかけ吉</h2>
+            <p id="paperSub" class="paper-sub">
+              今日はきっと、いい寄り道が見つかるはず。
+            </p>
+          </div>
+
+          <div id="confetti" class="confetti" aria-hidden="true"></div>
+        </div>
+
+        <p class="caption">
+          おみくじを引くと、紙面のMAP番号に対応したおすすめスポットが1つ表示されます。
+        </p>
+
+        <div class="button-row">
+          <button id="drawBtn" class="primary">おみくじをひく</button>
+          <button id="againBtn" class="secondary">もう一度ひく</button>
+        </div>
+      </div>
+
+      <section id="result" class="result" aria-live="polite">
+        <div class="result-header">
+          <p class="kicker">TODAY'S SPOT</p>
+          <p id="mapNumber" class="map-number">MAP 01</p>
+          <p id="spotName" class="spot-name">掲載施設 01</p>
+        </div>
+
+        <div class="fortune-card">
+          <p id="fortuneName" class="fortune-name">おでかけ吉</p>
+          <p id="fortuneText" class="fortune-text">
+            今日は気になった景色の前で、少しだけ立ち止まってみましょう。
+          </p>
+        </div>
+
+        <div class="result-actions">
+          <a id="websiteBtn" class="link-btn website" href="#" target="_blank" rel="noopener noreferrer">公式サイトを見る</a>
+          <a id="mapBtn" class="link-btn" href="#" target="_blank" rel="noopener noreferrer">Googleマップで見る</a>
+        </div>
+
+        <p class="notice">
+          紙面のMAP番号と見比べながら、気になるスポットをチェックしてみてください。
+        </p>
+      </section>
+    </section>
+
+
+      <section class="map-section" aria-label="秋のイベントMAP">
+        <div class="map-section-header">
+          <p class="kicker">AUTUMN EVENT MAP</p>
+          <h2>🍁 秋のイベントMAP</h2>
+          <p>気になるイベントを地図から探してみよう！</p>
+        </div>
+        <div class="map-frame">
+          <iframe
+            src="https://www.google.com/maps/d/embed?mid=1wseVP8Zyv7g76EclDpp4QZ9grDVP_AI&ehbc=2E312F"
+            title="秋のイベントMAP"
+            loading="lazy"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </section>
+
+    <footer class="footer">
+      秋のイベントガイド2026 / Cloudflare Pages対応<br>
+      ※イベント情報・URLは順次更新します。
+    </footer>
+  </main>
+
+  <script>
+    /*
+      =========================================================
+      編集する場所
+      1) DESTINATIONS: 施設名 / 公式サイトURL / GoogleマップURL
+      2) FORTUNES: おみくじ名とメッセージ
+      =========================================================
+    */
+
+    const DESTINATIONS = [
+  { id: 1, name: "入善町民会館 コスモホール", message: "心躍る出会いは舞台の先にあり。", website: "#", mapUrl: "#" },
+  { id: 2, name: "富山県立山カルデラ砂防博物館", message: "大地の物語に耳を澄ませば発見あり。", website: "#", mapUrl: "#" },
+  { id: 3, name: "高志の国文学館", message: "言葉との出会いが心を豊かにする。", website: "#", mapUrl: "#" },
+  { id: 4, name: "黒部市芸術創造センター セレネ美術館", message: "感性の扉を開くなら今日。", website: "#", mapUrl: "#" },
+  { id: 5, name: "南砺市城端伝統芸能会館「じょうはな座」", message: "受け継がれた技と心に縁あり。", website: "#", mapUrl: "#" },
+  { id: 6, name: "魚津水族館", message: "水辺の生きものとの出会いが吉。", website: "#", mapUrl: "#" },
+  { id: 7, name: "石川県能登島ガラス美術館", message: "光が生む美しさに幸運の兆し。", website: "#", mapUrl: "#" },
+  { id: 8, name: "富山県高岡文化ホール", message: "心を震わすひとときが待っている。", website: "#", mapUrl: "#" },
+  { id: 9, name: "南砺市立福光美術館", message: "芸術との語らいが実りをもたらす。", website: "#", mapUrl: "#" },
+  { id: 10, name: "石川県七尾美術館", message: "静かに向き合う時間が宝となる。", website: "#", mapUrl: "#" },
+  { id: 11, name: "ミュゼふくおかカメラ館", message: "忘れられない一瞬との出会いあり。", website: "#", mapUrl: "#" },
+  { id: 12, name: "石川県立音楽堂", message: "美しい音色が運気を彩る。", website: "#", mapUrl: "#" },
+  { id: 13, name: "富山市ファミリーパーク", message: "自然とふれあう笑顔が福を呼ぶ。", website: "#", mapUrl: "#" },
+  { id: 14, name: "オーバード・ホール／中ホール", message: "特別な感動があなたを待っている。", website: "#", mapUrl: "#" },
+  { id: 15, name: "掲載施設 15（仮）", message: "新しい出会いが待っています。", website: "#", mapUrl: "#" },
+  { id: 16, name: "掲載施設 16（仮）", message: "秋のお出かけに福あり。", website: "#", mapUrl: "#" }
+];
+
+const FORTUNE_MESSAGES = {
+  "大吉": "感性が冴える一日。",
+  "中吉": "心が動く出会いに恵まれる日。",
+  "吉": "好奇心の赴く先に発見あり。",
+  "小吉": "いつもと違う景色に福あり。"
+};
+
+
+
+    const FORTUNES = [
+      {
+        title: "おでかけ大吉",
+        short: "今日は気分のままに走ると、いい景色に出会えそう！"
+      },
+      {
+        title: "寄り道吉",
+        short: "いつもより一本だけ違う道を選ぶと、秋の楽しみが見つかるかも。"
+      },
+      {
+        title: "のんびり吉",
+        short: "急がずゆっくり。今日は寄り道そのものを楽しむ日です。"
+      },
+      {
+        title: "わくわく吉",
+        short: "気になった場所には、迷わず立ち寄ってみましょう！"
+      },
+      {
+        title: "秋さがし吉",
+        short: "もみじ、栗、景色。秋らしいものをひとつ探してみて。"
+      },
+      {
+        title: "家族にこにこ吉",
+        short: "今日は家族で一緒に楽しめるスポットと相性ぴったりです。"
+      }
+    ];
+
+    const drawBtn = document.getElementById("drawBtn");
+    const againBtn = document.getElementById("againBtn");
+    const omikujiBox = document.getElementById("omikujiBox");
+    const paper = document.getElementById("paper");
+    const paperTitle = document.getElementById("paperTitle");
+    const paperSub = document.getElementById("paperSub");
+
+    const result = document.getElementById("result");
+    const mapNumber = document.getElementById("mapNumber");
+    const spotName = document.getElementById("spotName");
+    const fortuneName = document.getElementById("fortuneName");
+    const fortuneText = document.getElementById("fortuneText");
+    const websiteBtn = document.getElementById("websiteBtn");
+    const mapBtn = document.getElementById("mapBtn");
+    const confetti = document.getElementById("confetti");
+
+    let playing = false;
+
+    function randomItem(array){
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function resetPaperState(){
+      paper.classList.remove("show");
+      void paper.offsetWidth; // アニメーション再生用リフロー
+    }
+
+    function clearConfetti(){
+      confetti.innerHTML = "";
+    }
+
+    function playConfetti(){
+      clearConfetti();
+
+      const colors = ["#fb923c", "#facc15", "#ef4444", "#84cc16", "#f472b6"];
+      const pieces = 22;
+
+      for(let i = 0; i < pieces; i++){
+        const piece = document.createElement("span");
+        piece.className = "piece";
+        piece.style.background = colors[i % colors.length];
+        piece.style.left = (50 + (Math.random() * 16 - 8)) + "%";
+        piece.style.top = (38 + Math.random() * 8) + "%";
+        piece.style.setProperty("--dx", (Math.random() * 260 - 130) + "px");
+        piece.style.setProperty("--dy", (Math.random() * 170 + 40) + "px");
+        piece.style.setProperty("--rot", (Math.random() * 360 - 180) + "deg");
+        confetti.appendChild(piece);
+
+        requestAnimationFrame(() => piece.classList.add("play"));
+      }
+
+      // 後始末
+      setTimeout(clearConfetti, 1400);
+    }
+
+    function setResult(destination, fortune){
+      mapNumber.textContent = "MAP " + String(destination.id).padStart(2, "0");
+      spotName.textContent = destination.name;
+      fortuneName.textContent = fortune.title;
+      fortuneText.textContent = fortune.short;
+
+      paperTitle.textContent = fortune.title;
+      paperSub.textContent = fortune.short;
+
+      websiteBtn.href = destination.website || "#";
+      mapBtn.href = destination.mapUrl || "#";
+    }
+
+    function playOmikuji(){
+      if(playing) return;
+
+      playing = true;
+      drawBtn.disabled = true;
+      againBtn.disabled = true;
+      result.classList.remove("show");
+
+      resetPaperState();
+      clearConfetti();
+
+      // 抽選
+      const destination = randomItem(DESTINATIONS);
+      const fortune = randomItem(FORTUNES);
+      setResult(destination, fortune);
+
+      // おみくじ箱を揺らす
+      omikujiBox.classList.remove("shaking");
+      void omikujiBox.offsetWidth;
+      omikujiBox.classList.add("shaking");
+
+      // 紙を出す
+      setTimeout(() => {
+        paper.classList.add("show");
+      }, 650);
+
+      // 結果表示 + エフェクト
+      setTimeout(() => {
+        result.classList.add("show");
+        playConfetti();
+      }, 1420);
+
+      // ボタン再開
+      setTimeout(() => {
+        drawBtn.disabled = false;
+        againBtn.disabled = false;
+        playing = false;
+      }, 1600);
+    }
+
+    drawBtn.addEventListener("click", playOmikuji);
+    againBtn.addEventListener("click", playOmikuji);
+
+    // 初回の見本表示は出さず、結果欄は非表示のまま開始
+    resetPaperState();
+  </script>
+</body>
+</html>

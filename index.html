@@ -41,28 +41,30 @@
     }
 
     .header{
-      padding:28px 24px 22px;
+      padding:12px 18px 10px;
       text-align:center;
     }
 
     .eyebrow{
-      margin:0;
-      font-size:13px;
+      margin:0 0 2px;
+      font-size:10px;
       font-weight:700;
+      line-height:1.4;
     }
 
     h1{
-      margin:18px 0 12px;
-      font-size:clamp(32px, 8vw, 46px);
-      line-height:1.2;
-      font-weight:800;
-      letter-spacing:.02em;
+      margin:0;
+      font-family:"Kaisei Opti", serif;
+      font-size:clamp(30px, 8vw, 42px);
+      line-height:1.25;
+      font-weight:700;
+      letter-spacing:.04em;
     }
 
     .lead{
-      margin:0;
-      font-size:15px;
-      line-height:1.8;
+      margin:2px 0 0;
+      font-size:11px;
+      line-height:1.4;
     }
 
     .panel{
@@ -82,7 +84,7 @@
 
     .stage-question{
       position:absolute;
-      top:48px;
+      top:28px;
       left:0;
       width:100%;
       margin:0;
@@ -305,7 +307,7 @@
       grid-template-columns:1fr;
       gap:var(--control-gap);
       width:100%;
-      margin:18px 0 0;
+      margin:12px 0 0;
       padding:0;
     }
 
@@ -314,7 +316,7 @@
       align-items:center;
       justify-content:center;
       width:100%;
-      min-height:58px;
+      min-height:52px;
       margin:0;
       padding:12px 18px;
       border-radius:999px;
@@ -416,16 +418,57 @@
       100%{ opacity:0; transform:translate(var(--dx), var(--dy)) rotate(var(--rot)); }
     }
 
-    @media (max-width:420px){
-      :root{ --stage-h:670px; }
-      body{ padding:0; }
-      .app{ width:100%; box-shadow:none; }
-      .header{ padding:24px 18px 18px; }
-      .panel{ padding:0 16px 22px; }
-      .box-wrap{ top:180px; width:205px; }
-      .result-paper{ top:24px; min-height:605px; }
-      .paper-fortune-message{ font-size:19px; }
-      .paper-spot-message{ font-size:15px; }
+   @media (max-width:420px){
+      :root{
+        --stage-h:580px;
+      }
+
+      body{
+        padding:0;
+      }
+
+      .app{
+        width:100%;
+        box-shadow:none;
+      }
+
+      .header{
+        padding:12px 18px 10px;
+      }
+
+      .panel{
+        padding:0 16px 18px;
+      }
+
+      .box-wrap{
+        top:140px;
+        width:195px;
+      }
+
+      .stage-question{
+        top:28px;
+      }
+
+      .controls{
+        margin-top:12px;
+      }
+
+      .control-btn{
+        min-height:52px;
+      }
+
+      .result-paper{
+        top:20px;
+        min-height:555px;
+      }
+
+      .paper-fortune-message{
+        font-size:18px;
+      }
+
+      .paper-spot-message{
+        font-size:14px;
+      }
     }
 
     @media (prefers-reduced-motion:reduce){
@@ -435,13 +478,34 @@
         transition-duration:.01ms !important;
       }
     }
+
+    @font-face {
+      font-family: "Kaisei Opti";
+      src: url("./fonts/KaiseiOpti-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Kaisei Opti";
+      src: url("./fonts/KaiseiOpti-Medium.ttf") format("truetype");
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Kaisei Opti";
+      src: url("./fonts/KaiseiOpti-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+    }
   </style>
 </head>
 <body>
   <main class="app">
     <header class="header">
       <p class="eyebrow">秋のイベントガイド 連動コンテンツ</p>
-      <h1>この秋、どこ行く？<br>おでかけおみくじ</h1>
+      <h1>行き先おみくじ</h1>
       <p class="lead">おみくじを引いて、おすすめのイベントを見つけよう！</p>
     </header>
 

@@ -10,9 +10,12 @@
       --paper:#fffdf8;
       --ink:#2d211b;
       --muted:#826e62;
-      --red:#d52f24;
-      --orange:#f97316;
-      --line:#ecd4b1;
+      --fortune:#d52f24;
+      --fortune-soft:#f9e7e4;
+      --fortune-soft-2:#fdf4f2;
+      --fortune-border:#e6a39d;
+      --red:var(--fortune);
+      --line:#ead8d4;
       --stage-h:690px;
       --control-gap:12px;
     }
@@ -117,8 +120,24 @@
       filter:drop-shadow(0 18px 16px rgba(83,55,24,.18));
     }
 
+    .box-wrap{
+      cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .box-wrap:focus-visible{
+      outline:3px solid rgba(213,47,36,.35);
+      outline-offset:8px;
+      border-radius:18px;
+    }
+
+    .box-wrap:not(.shaking):active{
+      filter:brightness(.97);
+    }
+
     .box-wrap.shaking{
       animation:shakeVertical .42s ease-in-out 4;
+      cursor:default;
     }
 
     @keyframes shakeVertical{
@@ -178,21 +197,6 @@
       pointer-events:none;
     }
 
-    .result-paper::after{
-      content:"開運";
-      pointer-events:none;
-      position:absolute;
-      right:20px;
-      bottom:22px;
-      padding:6px 3px;
-      writing-mode:vertical-rl;
-      border:3px solid var(--red);
-      color:var(--red);
-      font-size:20px;
-      font-weight:900;
-      line-height:1;
-    }
-
     .result-paper.show{
       animation:paperReveal .48s ease-out forwards;
       pointer-events:auto;
@@ -204,36 +208,39 @@
     }
     .paper-kicker{
       width:auto;
-      margin:0 auto 8px;
+      margin:8px auto 3px;
       padding:0;
       border-radius:0;
       color:var(--red);
       background:transparent;
       text-align:center;
-      font-size:13px;
+      font-size:12px;
       font-weight:900;
       letter-spacing:.16em;
     }
 
+    /* 運勢そのものは主役ではないので少し小さくする */
     .paper-title{
       margin:0;
       text-align:center;
       color:var(--red);
-      font-size:clamp(70px, 19vw, 96px);
+      font-size:clamp(46px, 12vw, 64px);
       line-height:1.05;
       font-weight:900;
       letter-spacing:.06em;
     }
 
+    /* おみくじ結果の説明を一番上に置く */
     .paper-fortune-message{
-      max-width:10em;
-      margin:16px auto 0;
-      padding-top:18px;
-      border-top:3px solid var(--red);
+      max-width:15em;
+      margin:0 auto 4px;
+      padding:0;
+      border:0;
       text-align:center;
-      font-size:21px;
+      font-size:17px;
       line-height:1.7;
       font-weight:700;
+      color:#4e4038;
     }
 
     .paper-divider{
@@ -260,39 +267,75 @@
       font-weight:900;
       letter-spacing:.04em;
     }
+    /* このページで最も伝えたい情報なので施設名を強く見せる */
     .paper-spot-name{
-      margin:4px 0 0;
-      text-align:center;
-      color:#bd281f;
-      font-size:clamp(24px, 6.8vw, 34px);
-      line-height:1.3;
-      font-weight:900;
-    }
-    .paper-spot-message{
-      max-width:13em;
-      margin:0 auto 12px;
-      text-align:center;
-      font-size:16px;
-      line-height:1.7;
-      font-weight:700;
-    }
-    .paper-map-number{
+      margin:18px auto 22px;
+      width:10em;
+      min-width:10em;
+      max-width:10em;
+      min-height:3.4em;
+      padding:0;
       display:flex;
       align-items:center;
       justify-content:center;
-      width:48px;
-      height:48px;
-      flex:0 0 48px;
-      margin:0;
-      border-radius:50%;
-      background:var(--red);
-      color:#fff;
       text-align:center;
-      font-size:9px;
-      line-height:1;
+      color:var(--fortune);
+      font-size:24px;
+      line-height:1.5;
+      font-weight:900;
+      white-space:nowrap;
+      overflow:visible;
+      position:relative;
+      z-index:1;
+    }
+
+    .paper-spot-name br{
+      display:block;
+    }
+    .paper-spot-message{
+      margin:0 auto 24px;
+      width:10em;
+      min-width:10em;
+      max-width:10em;
+      min-height:3.2em;
+      padding:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:var(--ink);
+      font-size:15px;
+      line-height:1.65;
+      font-weight:700;
+      white-space:nowrap;
+      overflow:visible;
+    }
+
+    .paper-spot-message br{
+      display:block;
+    }
+    .paper-map-number{
+      display:inline-block;
+      margin:0;
+      padding:0;
+      color:var(--red);
+      background:transparent;
+      border:0;
+      border-radius:0;
+      box-shadow:none;
+      text-decoration:none;
+      text-align:center;
+      font-size:12px;
+      line-height:1.2;
       font-weight:900;
       letter-spacing:.04em;
-      box-shadow:0 3px 8px rgba(189,40,31,.18);
+      cursor:pointer;
+    }
+
+    .paper-map-number:hover,
+    .paper-map-number:focus-visible{
+      text-decoration:underline;
+      text-underline-offset:3px;
     }
 
     .fortune-stage.is-result .stage-question,
@@ -301,57 +344,17 @@
       opacity:0;
     }
 
-    /* ボタンはstageとは別ブロックで固定。ここで余白を一元管理する */
-    .controls{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:var(--control-gap);
-      width:100%;
-      margin:12px 0 0;
-      padding:0;
-    }
-
-    .control-btn{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:100%;
-      min-height:52px;
-      margin:0;
-      padding:12px 18px;
-      border-radius:999px;
-      font-weight:900;
-      cursor:pointer;
-    }
-
-    .primary{
-      border:0;
-      color:#fff;
-      background:linear-gradient(90deg, #ff7418, #f74348);
-      box-shadow:0 10px 22px rgba(239,68,68,.2);
-    }
-
-    .secondary{
-      border:2px solid #f2bd87;
-      color:#b85b17;
-      background:#fff;
-    }
-
-    .control-btn:disabled{
-      opacity:.55;
-      cursor:default;
-    }
 
     /* 施設リンクは結果のおみくじ紙の中、施設名の直下に配置する */
     .paper-links{
       position:relative;
       z-index:6;
       display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:6px;
-      width:100%;
-      margin:7px auto 0;
-      padding:0 8px;
+      grid-template-columns:1fr;
+      gap:8px;
+      width:88%;
+      margin:8px auto 0;
+      padding:0;
     }
     .paper-link{
       position:relative;
@@ -362,7 +365,7 @@
       min-height:34px;
       padding:6px 8px;
       border-radius:999px;
-      border:1px solid #d8b06e;
+      border:1px solid var(--fortune-border);
       text-decoration:none;
       font-size:11px;
       font-weight:900;
@@ -372,18 +375,49 @@
 
     .paper-link.website{
       color:#fff;
-      border-color:#d56a21;
-      background:#e97a2a;
+      border-color:var(--fortune);
+      background:var(--fortune);
     }
 
     .paper-link.map{
-      color:#29683b;
-      border-color:#8ab895;
-      background:#f7fff8;
+      color:var(--fortune);
+      border-color:var(--fortune-border);
+      background:var(--fortune-soft);
     }
 
     .paper-link:active{ transform:scale(.985); }
     .paper-link.is-disabled{ opacity:.4; pointer-events:none; }
+
+
+
+    .paper-again-btn{
+      position:relative;
+      z-index:7;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:88%;
+      min-height:40px;
+      margin:10px auto 0;
+      padding:8px 12px;
+      border:1.5px solid var(--fortune-border);
+      border-radius:999px;
+      color:var(--fortune);
+      background:var(--fortune-soft-2);
+      font:inherit;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .paper-again-btn:active{
+      transform:scale(.985);
+    }
+
+    .paper-again-btn:disabled{
+      opacity:.5;
+      cursor:default;
+    }
 
     .footer{
       margin-top:20px;
@@ -469,6 +503,29 @@
       .paper-spot-message{
         font-size:14px;
       }
+
+      .paper-title{
+        font-size:50px;
+      }
+
+      .paper-fortune-message{
+        font-size:15px;
+      }
+
+      .paper-spot-name{
+        width:10em;
+        min-width:10em;
+        max-width:10em;
+        min-height:3.4em;
+        margin:20px auto 24px;
+        font-size:24px;
+        line-height:1.5;
+      }
+
+      .paper-again-btn{
+        width:88%;
+        min-height:38px;
+      }
     }
 
     @media (prefers-reduced-motion:reduce){
@@ -505,49 +562,63 @@
   <main class="app">
     <header class="header">
       <p class="eyebrow">秋のイベントガイド 連動コンテンツ</p>
-      <h1>行き先おみくじ</h1>
-      <p class="lead">おみくじを引いて、おすすめのイベントを見つけよう！</p>
+      <h1>秋のおでかけみくじ</h1>
+      <p class="lead">おでかけ先に迷ったら、おみくじを引いてみよう！</p>
     </header>
 
     <section class="panel">
       <div id="fortuneStage" class="fortune-stage">
-        <p class="stage-question">どのイベントに行こう？</p>
+        <p class="stage-question">今日はどこへ行こう？</p>
 
-        <div id="boxWrap" class="box-wrap" aria-hidden="true">
-          <img class="omikuji-box-image" src="./omikuji-box-placeholder.svg" alt="">
+        <div
+          id="boxWrap"
+          class="box-wrap"
+          role="button"
+          tabindex="0"
+          aria-label="おみくじをひく"
+        >
+          <img class="omikuji-box-image" src="./omikuji-box-placeholder.svg" alt="おみくじ箱">
         </div>
 
         <div id="omikujiStick" class="omikuji-stick" aria-hidden="true"></div>
 
         <article id="resultPaper" class="result-paper" aria-live="polite">
-          <p class="paper-kicker">開運おみくじ</p>
-          <h2 id="fortuneName" class="paper-title">吉</h2>
+          <!-- 1. おみくじ結果の説明 -->
           <p id="fortuneText" class="paper-fortune-message">好奇心の赴く先に発見あり。</p>
+
+          <!-- 2. 開運おみくじ -->
+          <p class="paper-kicker">開運おみくじ</p>
+
+          <!-- 3. おみくじの結果 -->
+          <h2 id="fortuneName" class="paper-title">吉</h2>
+
           <div class="paper-divider" aria-hidden="true"></div>
 
+          <!-- 4. 施設のおみくじ風の説明 -->
           <p id="spotMessage" class="paper-spot-message">新しい出会いが待っています。</p>
 
+          <!-- 5-6. おすすめ施設 + Map番号 -->
           <div class="paper-facility-head">
-            <p class="paper-badge">おすすめ施設</p>
-            <p id="mapNumber" class="paper-map-number">Map 01</p>
+            <p class="paper-badge">おでかけ先に迷ったら</p>
+            <a id="mapNumber" class="paper-map-number" href="https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E5%B2%A1%E9%A7%85" target="_blank" rel="noopener noreferrer">Map 01</a>
           </div>
 
+          <!-- 7. 施設名 -->
           <p id="spotName" class="paper-spot-name">掲載施設 01</p>
 
+          <!-- 8-9. 施設リンク -->
           <div class="paper-links" aria-label="施設リンク">
             <a id="websiteBtn" class="paper-link website" href="https://www.ypn.co.jp/" target="_blank" rel="noopener noreferrer">公式サイトを見る</a>
             <a id="mapBtn" class="paper-link map" href="https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E5%B2%A1%E9%A7%85" target="_blank" rel="noopener noreferrer">Googleマップで見る</a>
           </div>
+
+          <!-- 10. もう一度ひく -->
+          <button id="againBtn" class="paper-again-btn" type="button">もう一度ひく</button>
         </article>
 
         <div id="confetti" class="confetti" aria-hidden="true"></div>
       </div>
-
-      <div class="controls">
-        <button id="drawBtn" class="control-btn primary" type="button">おみくじをひく</button>
-        <button id="againBtn" class="control-btn secondary" type="button">もう一度ひく</button>
-      </div>
-    </section>
+</section>
 
     <footer class="footer">
       秋のイベントガイド2026<br>
@@ -565,7 +636,7 @@
 const DESTINATIONS = [
   { id: 1, name: "入善コスモホール", message: "心躍る出会いは舞台の先にあり。", website: "https://www.town.nyuzen.toyama.jp/gyosei/cosmo/index.html", mapUrl: "https://www.google.com/maps/search/?api=1&query=入善コスモホール" },
 
-  { id: 2, name: "富山県立山カルデラ砂防博物館", message: "大地の物語に耳を澄ませば発見あり。", website: "https://www.tatecal.or.jp/tatecal/index.html", mapUrl: "https://www.google.com/maps/search/?api=1&query=富山県立山カルデラ砂防博物館" },
+  { id: 2, name: "富山県<br>立山カルデラ砂防博物館", message: "大地の物語に耳を澄ませば発見あり。", website: "https://www.tatecal.or.jp/tatecal/index.html", mapUrl: "https://www.google.com/maps/search/?api=1&query=富山県立山カルデラ砂防博物館" },
 
   { id: 3, name: "高志の国文学館", message: "言葉との出会いが心を豊かにする。", website: "https://www.koshibun.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=高志の国文学館" },
 
@@ -575,7 +646,7 @@ const DESTINATIONS = [
 
   { id: 6, name: "魚津水族館", message: "水辺の生きものとの出会いが吉。", website: "https://www.uozu-aquarium.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=魚津水族館" },
 
-  { id: 7, name: "石川県能登島ガラス美術館", message: "光が生む美しさに幸運の兆し。", website: "https://nanao-af.jp/glass/", mapUrl: "https://www.google.com/maps/search/?api=1&query=石川県能登島ガラス美術館" },
+  { id: 7, name: "石川県<br>能登島ガラス美術館", message: "光が生む美しさに幸運の兆し。", website: "https://nanao-af.jp/glass/", mapUrl: "https://www.google.com/maps/search/?api=1&query=石川県能登島ガラス美術館" },
 
   { id: 8, name: "高岡文化ホール", message: "心を震わすひとときが待っている。", website: "https://www.bunka-toyama.jp/takabun/", mapUrl: "https://www.google.com/maps/search/?api=1&query=高岡文化ホール" },
 
@@ -583,13 +654,13 @@ const DESTINATIONS = [
 
   { id: 10, name: "石川県七尾美術館", message: "静かに向き合う時間が宝となる。", website: "https://nanao-art-museum.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=石川県七尾美術館" },
 
-  { id: 11, name: "ミュゼふくおかカメラ館", message: "忘れられない一瞬との出会いあり。", website: "https://www.camerakan.com/", mapUrl: "https://www.google.com/maps/search/?api=1&query=ミュゼふくおかカメラ館" },
+  { id: 11, name: "ミュゼふくおか<br>カメラ館", message: "忘れられない一瞬との出会いあり。", website: "https://www.camerakan.com/", mapUrl: "https://www.google.com/maps/search/?api=1&query=ミュゼふくおかカメラ館" },
 
   { id: 12, name: "石川県立音楽堂", message: "美しい音色が運気を彩る。", website: "https://ongakudo.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=石川県立音楽堂" },
 
-  { id: 13, name: "富山市ファミリーパーク", message: "自然とふれあう笑顔が福を呼ぶ。", website: "https://www.toyama-familypark.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=富山市ファミリーパーク" },
+  { id: 13, name: "富山市<br>ファミリーパーク", message: "自然とふれあう笑顔が福を呼ぶ。", website: "https://www.toyama-familypark.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=富山市ファミリーパーク" },
 
-  { id: 14, name: "オーバード・ホール／中ホール", message: "特別な感動があなたを待っている。", website: "https://www.aubade.or.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=オーバード・ホール 中ホール" },
+  { id: 14, name: "オーバード・ホール<br>中ホール", message: "特別な感動があなたを待っている。", website: "https://www.aubade.or.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=オーバード・ホール 中ホール" },
 
   { id: 15, name: "掲載施設 15（仮）", message: "新しい出会いが待っています。", website: "□○△▽◁▷■●▲▼◀︎▶︎", mapUrl: "□○△▽◁▷■●▲▼◀︎▶︎" },
 
@@ -614,7 +685,6 @@ const FORTUNES = ["大吉", "中吉", "吉", "小吉"];
     const spotName = document.getElementById("spotName");
     const spotMessage = document.getElementById("spotMessage");
     const mapNumber = document.getElementById("mapNumber");
-    const drawBtn = document.getElementById("drawBtn");
     const againBtn = document.getElementById("againBtn");
     const websiteBtn = document.getElementById("websiteBtn");
     const mapBtn = document.getElementById("mapBtn");
@@ -629,7 +699,7 @@ const FORTUNES = ["大吉", "中吉", "吉", "小吉"];
     function setResult(destination, fortune){
       fortuneName.textContent = fortune;
       fortuneText.textContent = FORTUNE_MESSAGES[fortune] || "";
-      spotName.textContent = destination.name;
+      spotName.innerHTML = destination.name;
       spotMessage.textContent = destination.message || "";
       mapNumber.textContent = "Map " + String(destination.id).padStart(2, "0");
 
@@ -638,7 +708,11 @@ const FORTUNES = ["大吉", "中吉", "吉", "小吉"];
       websiteBtn.classList.toggle("is-disabled", !hasWebsite);
       websiteBtn.setAttribute("aria-disabled", hasWebsite ? "false" : "true");
 
-      mapBtn.href = destination.mapUrl || "https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E5%B2%A1%E9%A7%85";
+      // GoogleマップURLは DESTINATIONS の mapUrl だけを編集すればよい。
+      // 「Map 00」と「Googleマップで見る」は同じURLを使う。
+      const googleMapUrl = destination.mapUrl || "https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E5%B2%A1%E9%A7%85";
+      mapBtn.href = googleMapUrl;
+      mapNumber.href = googleMapUrl;
     }
 
     function resetAnimation(){
@@ -674,8 +748,8 @@ const FORTUNES = ["大吉", "中吉", "吉", "小吉"];
       if(playing) return;
 
       playing = true;
-      drawBtn.disabled = true;
       againBtn.disabled = true;
+      boxWrap.setAttribute("aria-disabled", "true");
 
       resetAnimation();
 
@@ -699,13 +773,24 @@ const FORTUNES = ["大吉", "中吉", "吉", "小吉"];
       }, 1450);
 
       setTimeout(() => {
-        drawBtn.disabled = false;
         againBtn.disabled = false;
+        boxWrap.setAttribute("aria-disabled", "false");
         playing = false;
       }, 1650);
     }
 
-    drawBtn.addEventListener("click", playOmikuji);
+    // 初回は「おみくじ箱の画像」をクリック / タップして引く。
+    boxWrap.addEventListener("click", playOmikuji);
+
+    // キーボード操作にも対応（Enter / Space）。
+    boxWrap.addEventListener("keydown", (event) => {
+      if(event.key === "Enter" || event.key === " "){
+        event.preventDefault();
+        playOmikuji();
+      }
+    });
+
+    // 結果表示後は「もう一度ひく」で再抽選。
     againBtn.addEventListener("click", playOmikuji);
   </script>
 </body>

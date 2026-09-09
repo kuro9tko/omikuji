@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#fffaf4">
   <title>秋のイベントガイド2026</title>
-  <style>
+    <style>
     :root{
       --paper:#fffdf8;
       --ink:#2d211b;
@@ -65,7 +65,7 @@
     }
 
     .lead{
-      margin:2px 0 0;
+      margin:8px 0 0;
       font-size:11px;
       line-height:1.4;
     }
@@ -168,6 +168,26 @@
     @keyframes stickOut{
       from{ opacity:0; transform:translateX(-50%) translateY(70px); }
       to{ opacity:1; transform:translateX(-50%) translateY(0); }
+    }
+
+    /* 秋の背景あしらい：中央のおみくじを邪魔しないよう上下左右に配置 */
+    .autumn-deco{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:auto;
+      max-width:none;
+      pointer-events:none;
+      user-select:none;
+      z-index:0;
+    }
+
+    .autumn-deco-top{
+      top:0;
+    }
+
+    .autumn-deco-bottom{
+      bottom:0;
     }
 
     .result-paper{
@@ -568,6 +588,12 @@
 
     <section class="panel">
       <div id="fortuneStage" class="fortune-stage">
+        <img class="autumn-deco autumn-deco-top"
+             src="./images/Autumn_illust_fallen_leaves01.png"
+             alt="" aria-hidden="true">
+        <img class="autumn-deco autumn-deco-bottom"
+             src="./images/Autumn_illust_fallen_leaves02.png"
+             alt="" aria-hidden="true">
         <p class="stage-question">今日はどこへ行こう？</p>
 
         <div
@@ -577,7 +603,7 @@
           tabindex="0"
           aria-label="おみくじをひく"
         >
-          <img class="omikuji-box-image" src="./omikuji-box-placeholder.svg" alt="おみくじ箱">
+          <img class="omikuji-box-image" src="./images/omikuji-box-placeholder.svg" alt="おみくじ箱">
         </div>
 
         <div id="omikujiStick" class="omikuji-stick" aria-hidden="true"></div>
@@ -622,7 +648,7 @@
 
     <footer class="footer">
       秋のイベントガイド2026<br>
-      ※イベント情報・URLは順次更新します。
+      企画・制作 <a href="https://www.ypn.co.jp/">読売Palette中日本</a>
     </footer>
   </main>
 
@@ -669,12 +695,12 @@ const DESTINATIONS = [
 
 const FORTUNE_MESSAGES = {
   "大吉": "感性が冴える一日。",
-  "中吉": "心が動く出会いに恵まれる日。",
   "吉": "好奇心の赴く先に発見あり。",
+  "中吉": "心が動く出会いに恵まれる日。",
   "小吉": "いつもと違う景色に福あり。"
 };
 
-const FORTUNES = ["大吉", "中吉", "吉", "小吉"];
+const FORTUNES = ["大吉", "吉", "中吉", "小吉"];
 
     const fortuneStage = document.getElementById("fortuneStage");
     const boxWrap = document.getElementById("boxWrap");

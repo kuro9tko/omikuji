@@ -312,23 +312,24 @@
     .paper-spot-name br{
       display:block;
     }
-    .paper-spot-message{
-      margin:0 auto 24px;
-      width:10em;
-      min-width:10em;
-      max-width:10em;
-      min-height:3.2em;
-      padding:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      color:var(--ink);
-      font-size:15px;
-      line-height:1.65;
-      font-weight:700;
-      white-space:nowrap;
-      overflow:visible;
+    .paper-spot-message {
+      margin: 0 auto 24px;
+      width: 10em;
+      min-width: 10em;
+      max-width: 10em;
+      min-height: 3.2em;
+      padding: 0;
+
+      text-align: center;
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.65;
+      font-weight: 700;
+
+      /* <br>による改行を有効にする */
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
 
     .paper-spot-message br{
@@ -660,43 +661,42 @@
     */
 
 const DESTINATIONS = [
-  { id: 1, name: "入善コスモホール", message: "心躍る出会いは舞台の先にあり。", website: "https://www.town.nyuzen.toyama.jp/gyosei/cosmo/index.html", mapUrl: "https://www.google.com/maps/search/?api=1&query=入善コスモホール" },
+  { id: 1, name: "入善コスモホール", message: "心惹かれる音楽に<br>めぐり逢う日", website: "https://www.town.nyuzen.toyama.jp/gyosei/cosmo/index.html", mapUrl: "https://www.google.com/maps/search/?api=1&query=入善コスモホール" },
 
-  { id: 2, name: "富山県<br>立山カルデラ砂防博物館", message: "大地の物語に耳を澄ませば発見あり。", website: "https://www.tatecal.or.jp/tatecal/index.html", mapUrl: "https://www.google.com/maps/search/?api=1&query=富山県立山カルデラ砂防博物館" },
+  { id: 2, name: "富山県<br>立山カルデラ砂防博物館", message: "大地に秘めた<br>物語に発見あり", website: "https://www.tatecal.or.jp/tatecal/index.html", mapUrl: "https://www.google.com/maps/search/?api=1&query=富山県立山カルデラ砂防博物館" },
 
-  { id: 3, name: "高志の国文学館", message: "言葉との出会いが心を豊かにする。", website: "https://www.koshibun.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=高志の国文学館" },
+  { id: 3, name: "高志の国文学館", message: "美しい線と色彩に<br>心惹かれる", website: "https://www.koshibun.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=高志の国文学館" },
 
-  { id: 4, name: "セレネ美術館", message: "感性の扉を開くなら今日。", website: "https://www.unazuki-selene.com/", mapUrl: "https://www.google.com/maps/search/?api=1&query=セレネ美術館" },
+  { id: 4, name: "セレネ美術館", message: "感性の扉を開けば<br>新たな発見あり", website: "https://www.unazuki-selene.com/", mapUrl: "https://www.google.com/maps/search/?api=1&query=セレネ美術館" },
 
-  { id: 5, name: "じょうはな座", message: "受け継がれた技と心に縁あり。", website: "https://johanaza.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=じょうはな座" },
+  { id: 5, name: "じょうはな座", message: "受け継がれた技と心に縁あり", website: "https://johanaza.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=じょうはな座" },
 
-  { id: 6, name: "魚津水族館", message: "水辺の生きものとの出会いが吉。", website: "https://www.uozu-aquarium.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=魚津水族館" },
+  { id: 6, name: "魚津水族館", message: "水辺の生きものとの<br>出会いが吉", website: "https://www.uozu-aquarium.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=魚津水族館" },
 
-  { id: 7, name: "石川県<br>能登島ガラス美術館", message: "光が生む美しさに幸運の兆し。", website: "https://nanao-af.jp/glass/", mapUrl: "https://www.google.com/maps/search/?api=1&query=石川県能登島ガラス美術館" },
+  { id: 7, name: "石川県<br>能登島ガラス美術館", message: "心ときめくガラスに<br>幸運の兆しあり", website: "https://nanao-af.jp/glass/", mapUrl: "https://www.google.com/maps/search/?api=1&query=石川県能登島ガラス美術館" },
 
-  { id: 8, name: "高岡文化ホール", message: "心を震わすひとときが待っている。", website: "https://www.bunka-toyama.jp/takabun/", mapUrl: "https://www.google.com/maps/search/?api=1&query=高岡文化ホール" },
+  { id: 8, name: "高岡文化ホール", message: "ピアノの音色に<br>心躍るひとときあり", website: "https://www.bunka-toyama.jp/takabun/", mapUrl: "https://www.google.com/maps/search/?api=1&query=高岡文化ホール" },
 
-  { id: 9, name: "福光美術館", message: "芸術との語らいが実りをもたらす。", website: "https://nanto-museum.com/", mapUrl: "https://www.google.com/maps/search/?api=1&query=福光美術館" },
+  { id: 9, name: "福光美術館", message: "北からの風に触れれば<br>心に新たな発見あり", website: "https://nanto-museum.com/", mapUrl: "https://www.google.com/maps/search/?api=1&query=福光美術館" },
 
-  { id: 10, name: "石川県七尾美術館", message: "静かに向き合う時間が宝となる。", website: "https://nanao-art-museum.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=石川県七尾美術館" },
+  { id: 10, name: "石川県七尾美術館", message: "七尾が生んだ<br>巨匠の歩みに発見あり", website: "https://nanao-art-museum.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=石川県七尾美術館" },
 
-  { id: 11, name: "ミュゼふくおか<br>カメラ館", message: "忘れられない一瞬との出会いあり。", website: "https://www.camerakan.com/", mapUrl: "https://www.google.com/maps/search/?api=1&query=ミュゼふくおかカメラ館" },
+  { id: 11, name: "ミュゼふくおか<br>カメラ館", message: "何気ない一日が<br>特別な記念日になる", website: "https://www.camerakan.com/", mapUrl: "https://www.google.com/maps/search/?api=1&query=ミュゼふくおかカメラ館" },
 
-  { id: 12, name: "石川県立音楽堂", message: "美しい音色が運気を彩る。", website: "https://ongakudo.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=石川県立音楽堂" },
+  { id: 12, name: "石川県立音楽堂", message: "受け継がれる<br>日本の美に福あり", website: "https://ongakudo.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=石川県立音楽堂" },
 
-  { id: 13, name: "富山市<br>ファミリーパーク", message: "自然とふれあう笑顔が福を呼ぶ。", website: "https://www.toyama-familypark.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=富山市ファミリーパーク" },
+  { id: 13, name: "富山市<br>ファミリーパーク", message: "動物とのふれあいが<br>笑顔と福を呼ぶ", website: "https://www.toyama-familypark.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=富山市ファミリーパーク" },
 
-  { id: 14, name: "オーバード・ホール<br>中ホール", message: "特別な感動があなたを待っている。", website: "https://www.aubade.or.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=オーバード・ホール 中ホール" },
+  { id: 14, name: "オーバード・ホール<br>中ホール", message: "多彩な表現に<br>心躍るひとときあり", website: "https://www.aubade.or.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=オーバード・ホール 中ホール" },
 
-  { id: 15, name: "掲載施設 15（仮）", message: "新しい出会いが待っています。", website: "□○△▽◁▷■●▲▼◀︎▶︎", mapUrl: "□○△▽◁▷■●▲▼◀︎▶︎" },
+  { id: 15, name: "国立工芸館", message: "好きなもように<br>心わくわく", website: "https://www.momat.go.jp/craft-museum/", mapUrl: "https://www.google.com/maps/search/?api=1&query=国立工芸館" },
 
-  { id: 16, name: "掲載施設 16（仮）", message: "秋のお出かけに福あり。", website: "□○△▽◁▷■●▲▼◀︎▶︎", mapUrl: "□○△▽◁▷■●▲▼◀︎▶︎" }
 ];
 
 const FORTUNE_MESSAGES = {
   "大吉": "感性が冴える一日。",
   "吉": "好奇心の赴く先に発見あり。",
-  "中吉": "心が動く出会いに恵まれる日。",
+  "中吉": "心が動く出来事に恵まれる日。",
   "小吉": "いつもと違う景色に福あり。"
 };
 
@@ -726,7 +726,7 @@ const FORTUNES = ["大吉", "吉", "中吉", "小吉"];
       fortuneName.textContent = fortune;
       fortuneText.textContent = FORTUNE_MESSAGES[fortune] || "";
       spotName.innerHTML = destination.name;
-      spotMessage.textContent = destination.message || "";
+      spotMessage.innerHTML = destination.message || "";
       mapNumber.textContent = "Map " + String(destination.id).padStart(2, "0");
 
       const hasWebsite = destination.website && destination.website !== "#";

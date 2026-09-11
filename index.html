@@ -87,7 +87,7 @@
 
     .stage-question{
       position:absolute;
-      top:140px;
+      top:90px;
       left:0;
       width:100%;
       margin:0;
@@ -102,9 +102,9 @@
        サイズ・位置・角度・アニメーションはCSS側だけで管理する。 */
     .box-wrap{
       position:absolute;
-      left:50%;
-      top:185px;
-      width:min(54vw, 230px);
+      left:55%;
+      top:150px;
+      width:min(36vw, 240px);
       transform:translateX(-50%) rotate(27deg);
       transform-origin:center;
       z-index:2;
@@ -112,8 +112,10 @@
     }
 
     .omikuji-box-image{
+      position:relative;
+      z-index:1;
       display:block;
-      width:100%;
+      width:80%;
       height:auto;
       user-select:none;
       -webkit-user-drag:none;
@@ -147,27 +149,53 @@
       75%{ transform:translateX(-50%) rotate(27deg) translateY(-9px); }
     }
 
+    /* おみくじ棒：箱と同じ座標系に入れて、取り出し口から出るようにする */
     .omikuji-stick{
       position:absolute;
-      left:50%;
-      top:365px;
+      left:41%;
+      bottom:-10px;
       width:13px;
       height:168px;
       border-radius:999px;
-      background:linear-gradient(180deg, #fff7e8, #e8c98f);
+      background:linear-gradient(
+        180deg,
+        #fff7e8 0%,
+        #e8c98f 85%,
+        #d52f24 85%,
+        #d52f24 100%
+      );
       box-shadow:0 6px 12px rgba(83,55,24,.15);
-      transform:translateX(-50%) translateY(70px);
+      transform:translateX(-50%) translateY(76px);
+      transform-origin:center bottom;
       opacity:0;
-      z-index:1;
+      z-index:0;
+      pointer-events:none;
     }
 
     .omikuji-stick.show{
-      animation:stickOut .48s ease-out forwards;
+      animation:stickOut .48s cubic-bezier(.16,1,.3,1) forwards;
+    }
+
+    .omikuji-stick.is-out{
+      opacity:1;
+      transform:translateX(-50%) translateY(80px);
     }
 
     @keyframes stickOut{
-      from{ opacity:0; transform:translateX(-50%) translateY(70px); }
-      to{ opacity:1; transform:translateX(-50%) translateY(0); }
+      0%{
+        opacity:0;
+        transform:translateX(-50%) translateY(76px);
+      }
+
+      55%{
+        opacity:1;
+        transform:translateX(-50%) translateY(90px);
+      }
+
+      100%{
+        opacity:1;
+        transform:translateX(-50%) translateY(80px);
+      }
     }
 
     /* 秋の背景あしらい：中央のおみくじを邪魔しないよう上下左右に配置 */
@@ -197,7 +225,8 @@
       width:min(82%, 310px);
       min-height:625px;
       padding:24px 18px 22px;
-      transform:translateX(-50%) scale(.92);
+      transform:translateX(-50%) scaleY(.02);
+      transform-origin:top center;
       opacity:0;
       pointer-events:none;
       background:
@@ -223,8 +252,15 @@
     }
 
     @keyframes paperReveal{
-      from{ opacity:0; transform:translateX(-50%) scale(.92); }
-      to{ opacity:1; transform:translateX(-50%) scale(1); }
+      0%{
+        opacity:0;
+        transform:translateX(-50%) scaleY(.02);
+      }
+      20%{ opacity:1; }
+      100%{
+        opacity:1;
+        transform:translateX(-50%) scaleY(1);
+      }
     }
     .paper-kicker{
       width:auto;
@@ -360,8 +396,7 @@
     }
 
     .fortune-stage.is-result .stage-question,
-    .fortune-stage.is-result .box-wrap,
-    .fortune-stage.is-result .omikuji-stick{
+    .fortune-stage.is-result .box-wrap .omikuji-box-image{
       opacity:0;
     }
 
@@ -500,8 +535,14 @@
         width:195px;
       }
 
-      .stage-question{
-        top:28px;
+      .stage-question {
+        color: #5a4030;
+        text-shadow:
+          -1px -1px 0 #fff,
+          1px -1px 0 #fff,
+          -1px  1px 0 #fff,
+          1px  1px 0 #fff,
+          0 2px 4px rgba(80, 50, 30, 0.12);
       }
 
       .controls{
@@ -595,7 +636,7 @@
         <img class="autumn-deco autumn-deco-bottom"
              src="./images/Autumn_illust_fallen_leaves02.png"
              alt="" aria-hidden="true">
-        <p class="stage-question">今日はどこへ行こう？</p>
+        <p class="stage-question">箱を押してスタート！</p>
 
         <div
           id="boxWrap"
@@ -605,9 +646,8 @@
           aria-label="おみくじをひく"
         >
           <img class="omikuji-box-image" src="./images/omikuji-box-placeholder.svg" alt="おみくじ箱">
+          <div id="omikujiStick" class="omikuji-stick" aria-hidden="true"></div>
         </div>
-
-        <div id="omikujiStick" class="omikuji-stick" aria-hidden="true"></div>
 
         <article id="resultPaper" class="result-paper" aria-live="polite">
           <!-- 1. おみくじ結果の説明 -->
@@ -663,7 +703,7 @@
 const DESTINATIONS = [
   { id: 1, name: "入善コスモホール", message: "心惹かれる音楽に<br>めぐり逢う日", website: "https://www.town.nyuzen.toyama.jp/gyosei/cosmo/index.html", mapUrl: "https://www.google.com/maps/search/?api=1&query=入善コスモホール" },
 
-  { id: 2, name: "富山県<br>立山カルデラ砂防博物館", message: "大地に秘めた<br>物語に発見あり", website: "https://www.tatecal.or.jp/tatecal/index.html", mapUrl: "https://www.google.com/maps/search/?api=1&query=富山県立山カルデラ砂防博物館" },
+  { id: 2, name: "立山カルデラ砂防博物館", message: "大地に秘めた<br>物語に発見あり", website: "https://www.tatecal.or.jp/tatecal/index.html", mapUrl: "https://www.google.com/maps/search/?api=1&query=富山県立山カルデラ砂防博物館" },
 
   { id: 3, name: "高志の国文学館", message: "美しい線と色彩に<br>心惹かれる", website: "https://www.koshibun.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=高志の国文学館" },
 
@@ -690,6 +730,8 @@ const DESTINATIONS = [
   { id: 14, name: "オーバード・ホール<br>中ホール", message: "多彩な表現に<br>心躍るひとときあり", website: "https://www.aubade.or.jp/", mapUrl: "https://www.google.com/maps/search/?api=1&query=オーバード・ホール 中ホール" },
 
   { id: 15, name: "国立工芸館", message: "好きなもように<br>心わくわく", website: "https://www.momat.go.jp/craft-museum/", mapUrl: "https://www.google.com/maps/search/?api=1&query=国立工芸館" },
+
+  { id: 16, name: "ラポール", message: "美しい旋律に<br>福の兆しあり", website: "https://www.imizubunka.or.jp/rapport/", mapUrl: "https://www.google.com/maps/search/?api=1&query=小杉文化ホールラポール" },
 
 ];
 
@@ -744,7 +786,7 @@ const FORTUNES = ["大吉", "吉", "中吉", "小吉"];
     function resetAnimation(){
       fortuneStage.classList.remove("is-result");
       boxWrap.classList.remove("shaking");
-      omikujiStick.classList.remove("show");
+      omikujiStick.classList.remove("show", "is-out");
       resultPaper.classList.remove("show");
       confetti.innerHTML = "";
       void boxWrap.offsetWidth;
@@ -783,26 +825,38 @@ const FORTUNES = ["大吉", "吉", "中吉", "小吉"];
       const fortune = randomItem(FORTUNES);
       setResult(destination, fortune);
 
+      // ① 箱を約1.68秒揺らす
       boxWrap.classList.add("shaking");
 
+      // ② 箱の揺れが完全に終わってから、棒が「上方向」へ出る
       setTimeout(() => {
         omikujiStick.classList.add("show");
-      }, 520);
+      }, 1680);
 
+      // アニメーション終了後は、最終位置を明示的に固定する
+      omikujiStick.addEventListener("animationend", (event) => {
+        if(event.animationName === "stickOut") {
+          omikujiStick.classList.remove("show");
+          omikujiStick.classList.add("is-out");
+        }
+      }, { once:true });
+
+      // ③ 棒が出きって止まったあと、④ 結果の紙を上から下へ開く
       setTimeout(() => {
         fortuneStage.classList.add("is-result");
         resultPaper.classList.add("show");
-      }, 1050);
+      }, 2160);
 
+      // 結果表示後に紙吹雪
       setTimeout(() => {
         playConfetti();
-      }, 1450);
+      }, 2700);
 
       setTimeout(() => {
         againBtn.disabled = false;
         boxWrap.setAttribute("aria-disabled", "false");
         playing = false;
-      }, 1650);
+      }, 3150);
     }
 
     // 初回は「おみくじ箱の画像」をクリック / タップして引く。
